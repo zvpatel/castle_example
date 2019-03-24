@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Task1 - Castle Company</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  
+</head>
+
+<body>
+
+<div class="col-lg-12 main">
+  <div class="col-md-4"></div>
+  <div class="panel panel-default col-md-4"><h1>Castle Company Example</h1>
+    <div class="panel-body">
+      <p>Please enter the land heights in comma seperated list :</p>
+      <form name="inputForm">
+        <div class="input-group">
+          <input type="text" id="heightlist" class="form-control" placeholder="Enter Land Height List Here" required>  
+          <span class="input-group-btn">
+            <button class="btn btn-result"  type="button">Show</button>
+          </span>
+        </div>
+      </form>
+      <br><br>
+      <div>
+        <div>Number of castle can be build : <span class="castle-amt"></span></div><div class="castle-icon"></div>
+      </div>
+    </div>
+  </div>
+ 
+</div>
+
+<script>
+  $( document ).ready(function() {
+   
+    $(".btn-result").on('click', function(event){
+      $(".castle-icon").text(" ");
+      $(".castle-amt").text(" ");
+      var heightarray=$("#heightlist").val().split(',');
+      var noduplictearray=[];
+      var j=0;
+      if(heightarray.length>0){
+        numberofcastle=1;
+        $("div.castle-icon").append(" <span class='fas fa-building castle first-castle' ></span> ");
+        for(i=0;i<heightarray.length;i++)
+        {
+          if(heightarray[i]!=heightarray[i+1])
+          {
+            noduplictearray[j]=parseInt(heightarray[i]);
+            j++;
+          }
+        }
+        for (i = 1; i < noduplictearray.length; i++) {
+         
+          var PeakVal = (noduplictearray[i] > noduplictearray[i-1]) && (noduplictearray[i] > noduplictearray[i + 1]);
+          var ValleyVal = noduplictearray[i] < noduplictearray[i-1] && noduplictearray[i] < noduplictearray[i + 1];
+          if (PeakVal || ValleyVal){
+            $("div.castle-icon").append(" <span class='fas fa-building castle' ></span> ");
+            numberofcastle++;
+          }
+        }
+        $(".castle-amt").text(numberofcastle);
+      }
+      
+  });
+});
+
+</script>
+</body>
+</html>
